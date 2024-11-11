@@ -9,6 +9,9 @@ namespace ServiceLocator.Player
 {
     public class PlayerService : MonoBehaviour
     {
+        public static PlayerService Instance { get { return instance; } }
+        private static PlayerService instance;
+
         [SerializeField] private UIService uiService;
         [SerializeField] private MapService mapService;
         [SerializeField] private SoundService soundService;
@@ -22,6 +25,14 @@ namespace ServiceLocator.Player
         private MonkeyView selectedMonkeyView;
         private int health;
         public int Money { get; private set; }
+
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this.gameObject);
+        }
 
         private void Start()
         {
