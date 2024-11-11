@@ -12,6 +12,9 @@ namespace ServiceLocator.Wave
 {
     public class WaveService : MonoBehaviour
     {
+        public static WaveService Instance { get { return instance; } }
+        private static WaveService instance;
+
         [SerializeField] private EventService eventService;
         [SerializeField] private UIService uiService;
         [SerializeField] private SoundService soundService;
@@ -23,6 +26,14 @@ namespace ServiceLocator.Wave
         private List<WaveData> waveDatas;
         private List<BloonController> activeBloons;
 
+        private void Awake()
+        {
+            if (instance == null)
+                instance = this;
+            else
+                Destroy(this.gameObject);
+        }
+
         private void Start()
         {
             InitializeBloons();
@@ -31,7 +42,7 @@ namespace ServiceLocator.Wave
 
         private void InitializeBloons()
         {
-            bloonPool = new BloonPool(this, soundService, waveScriptableObject);
+            bloonPool = new BloonPool(soundService, waveScriptableObject);
             activeBloons = new List<BloonController>();
         }
 
