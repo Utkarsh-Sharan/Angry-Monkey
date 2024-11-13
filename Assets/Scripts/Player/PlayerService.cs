@@ -12,8 +12,6 @@ namespace ServiceLocator.Player
         public static PlayerService Instance { get { return instance; } }
         private static PlayerService instance;
 
-        [SerializeField] private SoundService soundService;
-
         [SerializeField] public PlayerScriptableObject playerScriptableObject;
 
         private ProjectilePool projectilePool;
@@ -101,7 +99,7 @@ namespace ServiceLocator.Player
             if (MapService.Instance.TryGetMonkeySpawnPosition(dropPosition, out Vector3 spawnPosition))
             {
                 SpawnMonkey(monkeyType, spawnPosition);
-                soundService.PlaySoundEffects(SoundType.SpawnMonkey);
+                SoundService.Instance.PlaySoundEffects(SoundType.SpawnMonkey);
             }
         }
 
