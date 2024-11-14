@@ -6,12 +6,14 @@ using ServiceLocator.Player;
 using ServiceLocator.Sound;
 using ServiceLocator.UI;
 using ServiceLocator.Map;
+using ServiceLocator.Wave;
 
 public class GameService : GenericMonoSingleton<GameService>
 {
     public PlayerService playerService { get; private set; }
     public SoundService soundService { get; private set; }
     public MapService mapService { get; private set; }
+    public WaveService waveService { get; private set; }
 
     [SerializeField] private UIService uiService;
     public UIService UIService => uiService;
@@ -27,11 +29,15 @@ public class GameService : GenericMonoSingleton<GameService>
     //Map
     [SerializeField] private MapScriptableObject mapScriptableObject;
 
+    //Wave
+    [SerializeField] private WaveScriptableObject waveScriptableObject;
+
     private void Start()
     {
         playerService = new PlayerService(playerScriptableObject);
         soundService = new SoundService(soundScriptableObject, audioEffects, backgroundMusic);
         mapService = new MapService(mapScriptableObject);
+        waveService = new WaveService(waveScriptableObject);
     }
 
     private void Update()
